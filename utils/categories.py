@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from models.category import CategoryCreate
 from schemas.categories_schema import Categories
+from .slug_maker import url_slugify
 
 
 def get_Category(db: Session, cat_id: int):
@@ -16,11 +17,13 @@ def get_categories(db: Session, skip: int = 0, limit: int = 100):
 
 
 def create_category(db: Session, category: CategoryCreate):
+    created_slug = url_slugify(category.name)
     db_category = Categories(
         parent=category.parent,
         name=category.name,
         description=category.description,
-        image=category.image)
+        image=category.image,
+        slug=created_slug)
     db.add(db_category)
     db.commit()
     db.refresh(db_category)

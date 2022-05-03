@@ -27,6 +27,7 @@ class User(TimeStamp, Base):
 
 
 
+
 class Profile(Base):
     __tablename__ = "profiles"
 
@@ -34,12 +35,22 @@ class Profile(Base):
     first_name = Column(String(255), nullable=False)
     last_name = Column(String(255), nullable=False)
     bio = Column(Text, nullable=True)
+    address = Column(String(255), nullable=False)
+    is_verified = Column(Boolean, default=False)
+    is_banned = Column(Boolean, default=False)
     
     rated = Column(Boolean, default=False)
     rating = Column(Integer, default=1)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    level = Column(Integer, default=1)
+    picture = Column(String, nullable=True)
+    cover_pic = Column(String, nullable=True)
+    response_rate = Column(Integer, nullable=True)
+    rentals_approved = Column(Integer, nullable=True)
+
 
     owner = relationship("User", back_populates="profile")
+
 
 
 

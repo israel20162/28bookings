@@ -9,10 +9,11 @@ class Categories(TimeStamp, Base):
     __tablename__ = "categories"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(255), nullable=False)
+    name = Column(String(255), nullable=False, unique=True)
     description = Column(String)
     image = Column(String, nullable=False)
     parent = Column(Integer, ForeignKey("categories.id"))
+    slug = Column(String(100), nullable=False)
 
   
 

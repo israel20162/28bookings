@@ -3,6 +3,7 @@ from models.user import UserCreate
 from models.item import ItemCreate
 from schemas.users_schema import User
 from schemas.items_schema import Item
+from utils.slug_maker import url_slugify
 
 
 def get_user(db: Session, user_id: int):
@@ -30,7 +31,8 @@ def create_user(db: Session, user: UserCreate):
     return db_user
 
 def create_user_item(db: Session, item: ItemCreate, user_id: int):
-    db_item = Item(**item.dict(), user=user_id)
+    created_slug = url_slugify(item.title + '-' + str(user_id))
+    db_item = Item(**item.dict(), user=user_id, slug=created_slug)
     db.add(db_item)
     db.commit()
     db.refresh(db_item)

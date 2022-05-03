@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from models.item import ItemCreate
 from schemas.items_schema import Item
+from utils.slug_maker import url_slugify
 
 
 def get_item(db: Session, item_id: int):
@@ -19,6 +20,7 @@ def get_items(db: Session, skip: int = 0, limit: int = 100):
 
 
 def create_item(db: Session, item: ItemCreate):
+    created_slug = url_slugify(item.title + '-' + str(item.user))
     db_item = Item(
         title= item.title,
         description= item.description,
@@ -31,7 +33,8 @@ def create_item(db: Session, item: ItemCreate):
         item_category = item.item_category,
         city= item.city,
         zipcode= item.zipcode,
-        quantity= item.quantity
+        quantity= item.quantity,
+        slug = created_slug
         )
     db.add(db_item)
     db.commit()

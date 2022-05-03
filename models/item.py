@@ -17,6 +17,7 @@ class ItemBase(BaseModel):
     zipcode: str
     rating: Optional[int]
     quantity: int
+    
 
 
 
@@ -27,6 +28,7 @@ class Item(ItemBase):
     is_verified: bool
     is_available: bool
     user: int
+    slug: str
 
     class Config:
         orm_mode = True

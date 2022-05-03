@@ -13,13 +13,16 @@ class Rentals(TimeStamp,Base):
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     lendee_id = Column(Integer,ForeignKey('users.id'), nullable=False)
     cost = Column(Integer, nullable=False)
-    payment_method = Column(String,unique=False, nullable=False)
+    paid = Column(Boolean, default=True)
+    payment_method = Column(String(20), unique=False, nullable=False)
     rental_confirmed = Column(Boolean, default=False)
     rental_status = Column(Integer, default=False)
     duration = Column(Integer, nullable=False)
     from_date = Column(DateTime, nullable=False)
     to_date = Column(DateTime, nullable=False)
     cal_event_id = Column(String(255), nullable=True)
+
+    
 
     
 

@@ -26,7 +26,7 @@ class Item(TimeStamp, Base):
     quantity = Column(Integer, default=1, nullable=False)
     user = Column(Integer, ForeignKey("users.id"), nullable=False)
     item_category = Column(Integer, ForeignKey("categories.id"), nullable=False) 
-
+    slug = Column(String(40), nullable=False)
     created_by = relationship(User, viewonly=True)
     owner = relationship("User", back_populates="items")
     item_pictures = relationship("ItemPictures", back_populates='picture')
